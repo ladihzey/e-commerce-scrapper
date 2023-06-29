@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "inquirer": "^9.2.7",
     "playwright": "^1.35.1"
   },
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "typescript": "^5.1.6"
   }
 }
