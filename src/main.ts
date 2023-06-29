@@ -7,14 +7,15 @@ const { searchTerm } = await inquirer.prompt([{
     message: "What are you looking for?",
 }]);
 
-console.log(searchTerm);
+const searchTermURI = encodeURIComponent(searchTerm);
+const searchPageURL = `https://www.amazon.com/s?k=${searchTermURI}&s=price-asc-rank`;
 
 const browser = await playwright["chromium"].launch({
     headless: false,
 });
 const context = await browser.newContext();
 const page = await context.newPage();
-await page.goto("https://amazon.com");
+await page.goto(searchPageURL);
 await page.waitForLoadState('networkidle');
 await page.waitForTimeout(2000);
 await browser.close();
