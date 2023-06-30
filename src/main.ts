@@ -1,5 +1,6 @@
 import 'module-alias/register';
 
+import { config } from '@/config';
 import { logger } from '@/common/services/logger';
 import { csvStorage } from '@/common/services/csv-storage';
 import { cliPrompt } from '@/common/services/cli-prompt';
@@ -20,8 +21,19 @@ const modules = [
 
         for (const module of modules) {
             logger.info(`retrieving products from ${module.name}...`);
-            const products = await module.getProducts(searchTerm);
-            logger.info(`retrieved ${products.length} products from ${module.name}`);
+            let products = null;
+            for (let i = 0; i < config.retryAttempts; i++) {
+                try {
+                    products = await module.getProducts(searchTerm);
+                    logger.info(`retrieved ${products.length} products from ${module.name}`);
+                } catch {
+                    logger.warn(`failed to scrape products,  ${config.retryAttempts - i} attempts left`);
+                }
+            }
+            if (!products) {
+                logger.error(`unable to scrape ${module.name}`);
+                continue;
+            }
 
             logger.info('saving data to csv storage...');
             await csvStorage.saveData(products.slice(0, 3));
