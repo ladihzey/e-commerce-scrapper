@@ -2,12 +2,13 @@ import playwright from 'playwright';
 import inquirer from 'inquirer';
 import * as cheerio from 'cheerio';
 
-const { searchTerm } = await inquirer.prompt([{
-    type: "input",
-    name: "searchTerm",
-    message: "What are you looking for?",
-}]);
+// const { searchTerm } = await inquirer.prompt([{
+//     type: "input",
+//     name: "searchTerm",
+//     message: "What are you looking for?",
+// }]);
 
+const searchTerm = 'ergodox ez';
 const searchTermURI = encodeURIComponent(searchTerm);
 const searchPageURL = `https://www.amazon.com/s?k=${searchTermURI}&s=price-asc-rank`;
 
@@ -27,6 +28,7 @@ const SearchPageSelectors = {
     PRODUCT_CARD: '[data-component-type="s-search-result"]',
 };
 const ProductCardSelectors = {
+    ROOT: 'div',
     LINK: 'h2 a',
     PRICE: '.a-price .a-offscreen',
 };
@@ -38,9 +40,11 @@ const products = dom(SearchPageSelectors.PRODUCT_CARD)
     .map(el => {
         const cardHTML = dom.html(el);
         const elDom = cheerio.load(cardHTML);
+        const rootEl = elDom(ProductCardSelectors.ROOT).first();
         const linkEl = elDom(ProductCardSelectors.LINK).first();
         const priceEl = elDom(ProductCardSelectors.PRICE).first();
 
+        const id = rootEl.attr('data-asin');
         const title = linkEl.text();
         const priceMatch = priceEl.text().match(/(\$)(\d+\.\d+)/);
         const currency = priceMatch?.[1] ?? '';
@@ -49,7 +53,7 @@ const products = dom(SearchPageSelectors.PRODUCT_CARD)
 
         return {
             platform: 'amazon',
-            platformId: '',
+            platformId: id,
             searchTerm,
             title,
             currency,
