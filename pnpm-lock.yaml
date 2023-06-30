@@ -7,6 +7,9 @@ dependencies:
   inquirer:
     specifier: ^9.2.7
     version: 9.2.7
+  papaparse:
+    specifier: ^5.4.1
+    version: 5.4.1
   playwright:
     specifier: ^1.35.1
     version: 1.35.1
@@ -15,6 +18,9 @@ devDependencies:
   '@types/inquirer':
     specifier: ^9.0.3
     version: 9.0.3
+  '@types/papaparse':
+    specifier: ^5.3.7
+    version: 5.3.7
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -30,6 +36,12 @@ packages:
 
   /@types/node@20.3.2:
     resolution: {integrity: sha512-vOBLVQeCQfIcF/2Y7eKFTqrMnizK5lRNQ7ykML/5RuwVXVWxYkgwS7xbt4B6fKCUPgbSL5FSsjHQpaGQP/dQmw==}
+    dev: true
+
+  /@types/papaparse@5.3.7:
+    resolution: {integrity: sha512-f2HKmlnPdCvS0WI33WtCs5GD7X1cxzzS/aduaxSu3I7TbhWlENjSPs6z5TaB9K0J+BH1jbmqTaM+ja5puis4wg==}
+    dependencies:
+      '@types/node': 20.3.2
     dev: true
 
   /@types/through@0.0.30:
@@ -356,6 +368,10 @@ packages:
   /os-tmpdir@1.0.2:
     resolution: {integrity: sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /papaparse@5.4.1:
+    resolution: {integrity: sha512-HipMsgJkZu8br23pW15uvo6sib6wne/4woLZPlFf3rpDyMe9ywEXUsuD7+6K9PRkJlVT51j/sCOYDKGGS3ZJrw==}
     dev: false
 
   /parse5-htmlparser2-tree-adapter@7.0.0:

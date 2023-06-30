@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/main.js",
+    "start": "node ./build/main.js",
     "init:playwright": "playwright install chromium"
   },
   "keywords": [],
@@ -14,10 +14,12 @@
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
     "inquirer": "^9.2.7",
+    "papaparse": "^5.4.1",
     "playwright": "^1.35.1"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
+    "@types/papaparse": "^5.3.7",
     "typescript": "^5.1.6"
   }
 }
