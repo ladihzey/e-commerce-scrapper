@@ -8,11 +8,13 @@ export async function crawlSearchResultsPageStatically(searchTerm: string): Prom
 
 export async function crawlSearchResultsPageInteractively(searchTerm: string): Promise<string> {
     return browser.usePage(async (page) => {
-        await page.getByPlaceholder('Search Amazon').fill(searchTerm);
-        await page.getByPlaceholder('Search Amazon').press('Enter');
-        await page.waitForLoadState('networkidle');
+        const searchInput = page.getByLabel('Search Amazon');
+        await searchInput.fill(searchTerm);
+        await searchInput.press('Enter');
+        await page.waitForLoadState('domcontentloaded');
+        await page.waitForTimeout(500);
 
-        await page.locator('[name="s"]').selectOption('Price: Low to High');
+        await page.locator('#s-result-sort-select').selectOption('Price: Low to High');
         await page.waitForLoadState('networkidle');
 
         return page.content();

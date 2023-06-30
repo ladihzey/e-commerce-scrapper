@@ -12,10 +12,18 @@ class CsvStorage {
         fsSync.mkdirSync(dir, { recursive: true });
     }
 
-    saveData(data: Object[]) {
-        return fs.writeFile(
+    private isStorageEmpty(): boolean {
+        return !fsSync.existsSync(this.storagePath) ||
+            fsSync.statSync(this.storagePath).size === 0;
+    }
+
+    async saveData(data: Object[]) {
+        const isEmpty = this.isStorageEmpty();
+        const csvRows = papa.unparse(data, { header: isEmpty });
+
+        return fs.appendFile(
             this.storagePath,
-            papa.unparse(data),
+            isEmpty ? csvRows : '\n' + csvRows,
             { encoding: 'utf-8' },
         );
     }

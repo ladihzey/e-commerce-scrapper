@@ -44,6 +44,7 @@ class Browser {
             chromium.use(stealthPlugin());
             this.browser = await chromium.launch({
                 headless: this.headless,
+                timeout: 60000,
             });
         }
 
