@@ -6,7 +6,7 @@ import { config } from '@/config';
 
 class CsvStorage {
     constructor(
-        private storagePath: string,
+        private readonly storagePath: string,
     ) {
         const dir = path.dirname(storagePath);
         fsSync.mkdirSync(dir, { recursive: true });

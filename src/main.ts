@@ -1,13 +1,10 @@
 import 'module-alias/register';
 
-import { chromium } from 'playwright-extra';
-import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 import * as cheerio from 'cheerio';
 import { Product } from '@/common/models/product';
 import { csvStorage } from '@/common/services/csv-storage';
 import { cliPrompt } from '@/common/services/cli-prompt';
-
-chromium.use(stealthPlugin());
+import { browser } from '@/common/services/browser';
 
 (async function() {
     const searchTerm = await cliPrompt.askQuestion('What are you looking for?');
@@ -15,17 +12,7 @@ chromium.use(stealthPlugin());
 
     const searchTermUri = encodeURIComponent(searchTerm);
     const searchPageUrl = `https://www.amazon.com/s?k=${searchTermUri}&s=price-asc-rank`;
-
-    // Initializing playwright
-    const browser = await chromium.launch({
-        headless: true,
-    });
-    const context = await browser.newContext();
-
-    // Navigate to search page
-    const searchPage = await context.newPage();
-    await searchPage.goto(searchPageUrl);
-    await searchPage.waitForLoadState('networkidle');
+    const searchPageHtml = await browser.getPageHtml(searchPageUrl);
 
     // Scrape target products
     const SearchPageSelectors = {
@@ -36,7 +23,6 @@ chromium.use(stealthPlugin());
         LINK: 'h2 a',
         PRICE: '.a-price .a-offscreen',
     };
-    const searchPageHtml = await searchPage.content();
 
     const dom = cheerio.load(searchPageHtml);
     const products = dom(SearchPageSelectors.PRODUCT_CARD)
