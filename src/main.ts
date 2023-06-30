@@ -1,11 +1,15 @@
 import 'module-alias/register';
 
 import playwright from 'playwright';
+import { chromium } from 'playwright-extra';
+import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 import * as cheerio from 'cheerio';
 import prompts from 'prompts';
 import { Product } from '@/common/models/product';
 import { notEmpty } from '@/common/utils/notEmpty';
 import { csvStorage } from '@/common/services/csv-storage';
+
+chromium.use(stealthPlugin());
 
 (async function() {
     const { searchTerm } = await prompts({
@@ -22,8 +26,8 @@ import { csvStorage } from '@/common/services/csv-storage';
     const searchPageUrl = `https://www.amazon.com/s?k=${searchTermUri}&s=price-asc-rank`;
 
     // Initializing playwright
-    const browser = await playwright["chromium"].launch({
-        headless: false,
+    const browser = await chromium.launch({
+        headless: true,
     });
     const context = await browser.newContext();
 
@@ -71,7 +75,7 @@ import { csvStorage } from '@/common/services/csv-storage';
             );
         });
 
-    await csvStorage.saveData(products, 'amazon');
+    await csvStorage.saveData(products);
 
     // Close resources
     await browser.close();

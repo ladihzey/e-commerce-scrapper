@@ -8,13 +8,13 @@ class CsvStorage {
     constructor(
         private storagePath: string,
     ) {
-        fsSync.mkdirSync(storagePath, { recursive: true });
+        const dir = path.dirname(storagePath);
+        fsSync.mkdirSync(dir, { recursive: true });
     }
 
-    saveData(data: Object[], tag: string) {
-        const filePath = path.resolve(this.storagePath, `${tag}.csv`);
+    saveData(data: Object[]) {
         return fs.writeFile(
-            filePath,
+            this.storagePath,
             papa.unparse(data),
             { encoding: 'utf-8' },
         );

@@ -1,3 +1,3 @@
 export const config = {
-    outputPath: './output/',
+    outputPath: './output/products.csv',
 };
