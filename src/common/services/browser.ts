@@ -12,7 +12,7 @@ class Browser {
     ) {}
 
     async usePage<C extends (page: Page) => Promise<any>, R = Awaited<ReturnType<C>>>(
-        usePageCallback: C,
+        callback: C,
         url?: string,
     ): Promise<R> {
         const page = await this.getNewPage();
@@ -20,7 +20,7 @@ class Browser {
             if (url) {
                 await page.goto(url, { waitUntil: 'networkidle' });
             }
-            const result = await usePageCallback(page);
+            const result = await callback(page);
             return result;
         } finally {
             await page.close();
