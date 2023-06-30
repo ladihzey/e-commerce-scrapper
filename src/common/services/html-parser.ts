@@ -9,10 +9,9 @@ export class HtmlParser {
         this.dom = cheerio.load(html);
     }
 
-    parseElements(selector: string): HtmlParser[] {
+    getElementHtmls(selector: string): string[] {
         return this.dom(selector).toArray().map(el => {
-            const elementHtml = this.dom.html(el);
-            return new HtmlParser(elementHtml);
+            return this.dom.html(el);
         });
     }
 
