@@ -1,4 +1,3 @@
-import { Product } from '@/common/models/product';
 import { HtmlParser } from '@/common/services/html-parser';
 
 const ProductCardSelectors = {
