@@ -8,9 +8,8 @@
     "noUncheckedIndexedAccess": true,
     "strict": true,
     "types": [],
-    "moduleResolution": "NodeNext",
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES2019",
+    "module": "CommonJS",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./build",
@@ -20,8 +19,13 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": false,
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+    },
   },
   "include": ["src/**/*"],
-  "exclude": ["**/node_modules"]
+  "exclude": ["**/node_modules"],
 }

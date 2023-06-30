@@ -1,7 +1,6 @@
 {
   "name": "janus-takehome-project",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -13,13 +12,17 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "inquirer": "^9.2.7",
     "papaparse": "^5.4.1",
-    "playwright": "^1.35.1"
+    "playwright": "^1.35.1",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.3",
     "@types/papaparse": "^5.3.7",
+    "@types/prompts": "^2.4.4",
+    "module-alias": "^2.2.3",
     "typescript": "^5.1.6"
+  },
+  "_moduleAliases": {
+    "@": "build"
   }
 }
