@@ -1,12 +1,11 @@
 import 'module-alias/register';
 
-import fs from 'node:fs/promises';
 import playwright from 'playwright';
 import * as cheerio from 'cheerio';
-import papa from 'papaparse';
 import prompts from 'prompts';
 import { Product } from '@/common/models/product';
 import { notEmpty } from '@/common/utils/notEmpty';
+import { csvStorage } from '@/common/services/csv-storage';
 
 (async function() {
     const { searchTerm } = await prompts({
@@ -72,11 +71,7 @@ import { notEmpty } from '@/common/utils/notEmpty';
             );
         });
 
-    await fs.writeFile(
-        './output/products.csv',
-        papa.unparse(products),
-        { encoding: 'utf-8' },
-    );
+    await csvStorage.saveData(products, 'amazon');
 
     // Close resources
     await browser.close();
