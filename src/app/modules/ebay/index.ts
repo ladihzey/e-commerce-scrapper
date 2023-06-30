@@ -1,15 +1,15 @@
 import { priceParser } from '@/common/parsers/price-parser';
 import { Product } from '@/app/product';
 import { Module } from '@/app/module';
-import { crawlSearchResultsPageInteractively } from './crawlers/crawl-search-results';
+import { crawlSearchResultsPage } from './crawlers/crawl-search-results';
 import { parseProductCardHtmls } from './parsers/parse-results-page';
 import { parseProductCard } from './parsers/parse-product-card';
 
-class AmazonModule implements Module {
-    readonly name = 'amazon';
+class EbayModule implements Module {
+    readonly name = 'ebay';
 
     async getProducts(searchTerm: string): Promise<Product[]> {
-        const resultsPageHtml = await crawlSearchResultsPageInteractively(searchTerm);
+        const resultsPageHtml = await crawlSearchResultsPage(searchTerm);
         const productCardHtmls = parseProductCardHtmls(resultsPageHtml);
         const products = productCardHtmls
             .map(parseProductCard)
@@ -17,9 +17,8 @@ class AmazonModule implements Module {
                 id,
                 priceText,
                 title,
-                uri,
+                url,
             }) => {
-                const url = uri ? `https://amazon.com${uri}` : null;
                 const { currency, price } = priceParser.parse(priceText ?? '');
 
                 return new Product(
@@ -38,4 +37,4 @@ class AmazonModule implements Module {
     }
 }
 
-export const amazon = new AmazonModule();
+export const ebay = new EbayModule();

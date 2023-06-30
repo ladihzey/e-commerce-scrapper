@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
 export interface Module {
-    getProducts(searchTerm: string, amount: number): Promise<Product[]>;
+    getProducts(searchTerm: string): Promise<Product[]>;
     name: string;
 }

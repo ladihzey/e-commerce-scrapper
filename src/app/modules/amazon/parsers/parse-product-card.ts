@@ -1,4 +1,4 @@
-import { HtmlParser } from '@/common/services/html-parser';
+import { HtmlParser } from '@/common/parsers/html-parser';
 
 const ProductCardSelectors = {
     ROOT: 'div',
