@@ -7,7 +7,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "strict": true,
-    "types": [],
+    "types": ["node", "jest"],
     "target": "ES2019",
     "module": "CommonJS",
     "declaration": true,
@@ -24,6 +24,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
+      "@static/*": ["./static/*"],
     },
   },
   "include": ["src/**/*"],

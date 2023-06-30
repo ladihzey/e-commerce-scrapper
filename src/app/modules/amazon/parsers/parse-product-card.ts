@@ -7,7 +7,7 @@ const ProductCardSelectors = {
 };
 
 export function parseProductCard(html: string) {
-    const parser = new  HtmlParser(html);
+    const parser = new HtmlParser(html);
 
     const id = parser.getElementAttribute(ProductCardSelectors.ROOT, 'data-asin');
     const title = parser.getElementText(ProductCardSelectors.LINK);

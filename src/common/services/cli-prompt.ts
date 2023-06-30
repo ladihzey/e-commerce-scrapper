@@ -1,5 +1,5 @@
 import prompts from 'prompts';
-import { notEmpty } from '@/common/utils/notEmpty';
+import { notEmpty } from '@/common/utils/not-empty';
 
 class CliPrompt {
     async askQuestion(question: string): Promise<string> {
