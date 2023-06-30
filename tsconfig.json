@@ -7,11 +7,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "strict": true,
-    "paths": {
-      "#pkg/*": ["./src/*"]
-    },
     "types": [],
     "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
@@ -20,8 +19,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": false,
-    "target": "ESNext",
-    "module": "ESNext",
     "incremental": true,
     "skipLibCheck": true
   },

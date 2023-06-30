@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "1.0.0-rc.12",
     "inquirer": "^9.2.7",
     "playwright": "^1.35.1"
   },
