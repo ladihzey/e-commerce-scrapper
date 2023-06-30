@@ -1,5 +1,5 @@
 export class Product {
-    readonly lastScrappedAt: Date = new Date();
+    readonly createdAt: Date = new Date();
 
     constructor(
         readonly platform: string,

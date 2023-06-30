@@ -1,26 +1,17 @@
 import 'module-alias/register';
 
-import playwright from 'playwright';
 import { chromium } from 'playwright-extra';
 import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 import * as cheerio from 'cheerio';
-import prompts from 'prompts';
 import { Product } from '@/common/models/product';
-import { notEmpty } from '@/common/utils/notEmpty';
 import { csvStorage } from '@/common/services/csv-storage';
+import { cliPrompt } from '@/common/services/cli-prompt';
 
 chromium.use(stealthPlugin());
 
 (async function() {
-    const { searchTerm } = await prompts({
-        type: 'text',
-        name: 'searchTerm',
-        message: 'What are you looking for?',
-        validate: response => notEmpty(response) && response.trim() !== '',
-    });
-    if (!searchTerm) {
-        return;
-    }
+    const searchTerm = await cliPrompt.askQuestion('What are you looking for?');
+    if (!searchTerm) return;
 
     const searchTermUri = encodeURIComponent(searchTerm);
     const searchPageUrl = `https://www.amazon.com/s?k=${searchTermUri}&s=price-asc-rank`;
