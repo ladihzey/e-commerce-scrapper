@@ -5,6 +5,7 @@ import playwright from 'playwright';
 import * as cheerio from 'cheerio';
 import papa from 'papaparse';
 import prompts from 'prompts';
+import { Product } from '@/common/models/product';
 import { notEmpty } from '@/common/utils/notEmpty';
 
 (async function() {
@@ -53,22 +54,22 @@ import { notEmpty } from '@/common/utils/notEmpty';
             const linkEl = elDom(ProductCardSelectors.LINK).first();
             const priceEl = elDom(ProductCardSelectors.PRICE).first();
 
-            const id = rootEl.attr('data-asin');
+            const id = rootEl.attr('data-asin') ?? '';
             const title = linkEl.text();
             const priceMatch = priceEl.text().match(/(\$)(\d+\.\d+)/);
             const currency = priceMatch?.[1] ?? '';
             const price = parseFloat(priceMatch?.[2] ?? '');
             const url = `https://amazon.com${linkEl.attr('href')}`;
 
-            return {
-                platform: 'amazon',
-                platformId: id,
+            return new Product(
+                'amazon',
+                id,
                 searchTerm,
                 title,
                 currency,
                 price,
                 url,
-            };
+            );
         });
 
     await fs.writeFile(
