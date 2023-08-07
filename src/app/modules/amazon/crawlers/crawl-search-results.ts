@@ -24,5 +24,5 @@ export async function crawlSearchResultsPageInteractively(searchTerm: string): P
         const html = await page.content();
         logger.info('page content downloaded successfully');
         return html;
-    }, 'https://amazon.com');
+    }, 'https://www.amazon.com');
 }

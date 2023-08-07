@@ -26,6 +26,7 @@ const modules = [
                 try {
                     products = await module.getProducts(searchTerm);
                     logger.info(`retrieved ${products.length} products from ${module.name}`);
+                    break;
                 } catch {
                     logger.warn(`failed to scrape products,  ${config.retryAttempts - i} attempts left`);
                 }

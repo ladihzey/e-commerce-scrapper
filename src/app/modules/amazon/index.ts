@@ -19,7 +19,7 @@ class AmazonModule implements Module {
                 title,
                 uri,
             }) => {
-                const url = uri ? `https://amazon.com${uri}` : null;
+                const url = uri ? `https://www.amazon.com${uri}` : null;
                 const { currency, price } = priceParser.parse(priceText ?? '');
 
                 return new Product(
